@@ -1,6 +1,6 @@
 clear
 while($true){
-
+$logfile = 'c:\LOG.txt';
 try{
 $url='https://server/endpoint.asmx';
 $HTTP_Request = [System.Net.WebRequest]::Create($url)
@@ -9,7 +9,7 @@ $HTTP_Status = [int]$HTTP_Response.StatusCode
 
 $theDate=Get-Date -Format s; 
 Write-Host $theDate $url "- OK" 
-Add-Content c:\LOG.txt "$theDate $url - OK"
+Add-Content $logfile "$theDate $url - OK"
 
 $HTTP_Response.Close()
 
@@ -28,11 +28,11 @@ catch{
         $exceptionMessage = $_.Exception.Message
         $exceptionItem = $_.Exception.ItemName
         "$theDate $exceptionMessage - Internet is UP"
-        Add-Content c:\LOG.txt "$theDate $exceptionMessage - Internet is UP"
+        Add-Content $logfile "$theDate $exceptionMessage - Internet is UP"
     }
     catch{
         "$theDate $exceptionMessage - Internet is DOWN"
-        Add-Content c:\LOG.txt "$theDate $exceptionMessage - Internet is DOWN"
+        Add-Content $logfile "$theDate $exceptionMessage - Internet is DOWN"
     }
 }
 
